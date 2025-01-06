@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memori Kelas Funtustic TKJ B</title>
+    
+    <!-- Linking to external CSS file -->
+    <link href="styles.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <!-- Menambahkan backsound -->
+    <audio id="backgroundAudio" autoplay loop>
+        <source src="Backsound.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <header>
+        Memori Kelas Funtustic TKJ B 📚🎓
+    </header>
+
+    <div class="container">
+        <div class="category" onclick="showGallery('studyTour')">
+            <p>Foto Study Tour/Event 🎒</p>
+        </div>
+        <div class="category" onclick="showGallery('randomImages')">
+            <p>Foto Random 🖼️</p>
+        </div>
+        <div class="category" onclick="showGallery('classPhotos')">
+            <p>Foto Sekelas 📸</p>
+        </div>
+        <div class="category" onclick="showGallery('randomVideos')">
+            <p>Video Random 🎬</p>
+        </div>
+    </div>
+
+    <div id="studyTour" class="gallery">
+        <h3>Galeri Study tour/Event 🎒</h3>
+    </div>
+
+    <div id="randomImages" class="gallery">
+        <h3>Galeri Foto Random 🖼️</h3>
+    </div>
+
+    <div id="classPhotos" class="gallery">
+        <h3>Galeri Foto Sekelas 📸</h3>
+    </div>
+
+    <div id="randomVideos" class="gallery">
+        <h3>Galeri Video Random 🎬</h3>
+    </div>
+
+    <button onclick="openPopup()">Unggah Kenangan 🎓</button>
+
+    <div class="overlay" id="overlay" onclick="closePopup()"></div>
+
+    <div class="popup" id="popup">
+        <h2 id="popupTitle">Unggah Kenangan 🎓</h2>
+        <form id="uploadForm">
+            <select id="categorySelect">
+                <option value="studyTour">Study Tour/Event 🎒</option>
+                <option value="randomImages">Foto Random 🖼️</option>
+                <option value="classPhotos">Foto Sekelas 📸</option>
+                <option value="randomVideos">Video Random 🎬</option>
+            </select>
+            <input type="file" id="fileInput" accept="image/*,video/*">
+            <br><br>
+            <button type="button" onclick="uploadFile()">Unggah 🎓</button>
+        </form>
+    </div>
+
+    <div class="message-button" onclick="goToPesanPage()">💬</div>
+
+    <div class="message-popup" id="messagePopup">
+        <h2>Kirim Pesan</h2>
+        <textarea id="messageText" placeholder="Tulis pesan Anda..."></textarea><br><br>
+        <button onclick="sendMessage()">Kirim</button>
+        <button onclick="closeMessagePopup()">Tutup</button>
+    </div>
+
+    <footer>
+        © 2025 Memori Kelas TKJ B - Pendidikan Untuk Masa Depan 📚
+    </footer>
+
+    <!-- Linking to external JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>

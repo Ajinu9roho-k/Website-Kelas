@@ -1,0 +1,211 @@
+/* General Reset and Body Style */
+html, body {
+	overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #fef7c3;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header Styling */
+header {
+    text-align: center;
+    padding: 30px;
+    font-size: 2.5em;
+    background-color: #ffec8b;
+    border-bottom: 5px solid #f3d270;
+    color: #5a3f2d;
+    font-family: 'Indie Flower', cursive;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Container for Categories */
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+    flex-grow: 1;
+}
+
+/* Category Styling */
+.category {
+    margin: 20px;
+    padding: 25px;
+    border: 3px solid #f3d270;
+    border-radius: 15px;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.8);
+    transition: transform 0.3s ease, background-color 0.3s, box-shadow 0.3s;
+    flex: 1 1 calc(50% - 40px);
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 1.4em;
+    animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Hover Effect for Categories */
+.category:hover {
+    transform: scale(1.1);
+    background-color: #ffdd6b;
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Gallery Style */
+.gallery {
+    display: none;
+    padding: 20px;
+    text-align: center;
+}
+
+.gallery img, .gallery video {
+    width: auto;
+    height: auto;
+    max-width: 90%;
+    max-height: 300px;
+    margin: 15px;
+    border-radius: 15px;
+}
+
+/* Upload Button Styling */
+button {
+    margin: 20px auto;
+    display: block;
+    padding: 15px 30px;
+    font-size: 1.5em;
+    border-radius: 20px;
+    background-color: #f3d270;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+button:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* Popup and Overlay */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.9);
+    color: #5a3f2d;
+    padding: 30px;
+    border-radius: 20px;
+    z-index: 1000;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    width: 80%;
+    max-width: 400px;
+}
+
+/* Message Popup */
+.message-button {
+    position: fixed;
+    bottom: 75px;
+    right: 30px;
+    background-color: #ff7b7b;
+    color: white;
+    font-size: 1.5em;
+    padding: 15px 25px;
+    border-radius: 50%;
+    border: block;
+    cursor: pointer;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.message-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.message-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #5a3f2d;
+    padding: 30px;
+    border-radius: 15px;
+    z-index: 1001;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    width: 80%;
+    max-width: 400px;
+}
+
+footer {
+    text-align: center;
+    padding: 15px;
+    background-color: #ffec8b;
+    position: relative;
+    width: 100%;
+    color: #5a3f2d;
+    margin-top: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header {
+        font-size: 2em;
+        padding: 15px;
+    }
+
+    .category {
+        flex: 1 1 calc(50% - 40px);
+        padding: 20px;
+    }
+
+    button {
+        font-size: 1.2em;
+        padding: 12px 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        font-size: 1.5em;
+        padding: 15px;
+    }
+
+    .category {
+        flex: 1 1 100%;
+        padding: 15px;
+    }
+
+    button {
+        font-size: 1.2em;
+        padding: 10px 20px;
+    }
+}

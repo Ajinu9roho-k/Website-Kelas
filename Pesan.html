@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruang Pesan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffecf3;
+            color: #333;
+        }
+        .chat-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            border: 2px solid #ff69b4;
+        }
+        h2 {
+            text-align: center;
+            color: #ff69b4;
+            font-size: 2em;
+        }
+        .messages {
+            height: 300px;
+            overflow-y: scroll;
+            border-bottom: 2px dashed #ff69b4;
+            margin-bottom: 20px;
+            padding-right: 10px;
+        }
+        .message {
+            padding: 10px;
+            margin-bottom: 15px;
+            background-color: #f1f1f1;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .message .sender {
+            font-weight: bold;
+            color: #ff69b4;
+            margin-bottom: 5px;
+        }
+        .message .text {
+            background-color: #ffefdb;
+            padding: 12px;
+            border-radius: 15px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+        .input-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 12px;
+            border-radius: 25px;
+            border: 2px solid #ff69b4;
+            font-size: 1em;
+            margin-right: 10px;
+            transition: all 0.3s;
+        }
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #ff1493;
+        }
+        button {
+            padding: 12px 20px;
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        button:hover {
+            background-color: #ff1493;
+            transform: scale(1.05);
+        }
+        .back-button {
+            display: inline-block;
+            background-color: #1e90ff;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 25px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+        .back-button:hover {
+            background-color: #4682b4;
+            transform: scale(1.1);
+        }
+        @media (max-width: 600px) {
+            .input-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            input[type="text"] {
+                width: 100%;
+                margin-right: 0;
+            }
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="chat-container">
+    <!-- Tombol Kembali ke Memori Kenangan -->
+    <a href="index.html" class="back-button">Kembali ke Memori Kenangan</a>
+
+    <h2>Ruang Pesan</h2>
+    <div id="userInfo"></div> <!-- Menampilkan info pengguna (nama Google) -->
+    <div class="messages" id="messages">
+        <!-- Pesan akan muncul di sini -->
+    </div>
+    <div class="input-group">
+        <input type="text" id="messageInput" placeholder="Ketik pesan lucu..." />
+        <button onclick="sendMessage()">Kirim</button>
+    </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+<script>
+    // Firebase configuration (masukkan kredensial Firebase Anda di sini)
+    const firebaseConfig = {
+        apiKey: "YOUR_API_KEY",
+        authDomain: "YOUR_AUTH_DOMAIN",
+        projectId: "YOUR_PROJECT_ID",
+        storageBucket: "YOUR_STORAGE_BUCKET",
+        messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+        appId: "YOUR_APP_ID"
+    };
+
+    // Inisialisasi Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // Fungsi untuk login dengan Google
+    function googleLogin() {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        auth.signInWithPopup(provider).then((result) => {
+            const user = result.user;
+            document.getElementById("userInfo").innerHTML = `Hai, ${user.displayName}!`;
+        }).catch((error) => {
+            console.error(error.message);
+        });
+    }
+
+    // Fungsi untuk mengirim pesan
+    function sendMessage() {
+        const input = document.getElementById('messageInput');
+        const messageText = input.value.trim();
+
+        if (messageText !== "") {
+            const messagesDiv = document.getElementById('messages');
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message');
+            
+            const senderName = auth.currentUser ? auth.currentUser.displayName : "Pengguna Anonim";
+            messageElement.innerHTML = `
+                <span class="sender">${senderName}:</span>
+                <span class="text">${messageText}</span>
+            `;
+
+            messagesDiv.appendChild(messageElement);
+            input.value = "";  // Clear input field
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;  // Scroll to the bottom
+        }
+    }
+
+    // Menginisialisasi tampilan login jika belum ada pengguna yang login
+    auth.onAuthStateChanged((user) => {
+        if (user) {
+            document.getElementById("userInfo").innerHTML = `Hai, ${user.displayName}!`;
+        } else {
+            googleLogin();
+        }
+    });
+
+    // Fungsi untuk logout
+    function logout() {
+        auth.signOut().then(() => {
+            document.getElementById("userInfo").innerHTML = "";
+        });
+    }
+</script>
+
+</body>
+</html>
